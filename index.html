@@ -128,7 +128,7 @@ section{ position:relative; min-height:100svh; width:100%; display:flex; align-i
 .sparkle{ position:absolute; pointer-events:none; font-size:.9rem; color:#fff; animation:sparkleFly .7s ease-out forwards; }
 @keyframes sparkleFly{ 0%{ opacity:1; transform:translate(0,0) scale(.4);} 100%{ opacity:0; transform:translate(var(--sx),var(--sy)) scale(1.2);} }
 
-.typewriter-line{ font-size:1.1rem; line-height:2; color:var(--plum); min-height:1.6em; white-space:pre-line; }
+.typewriter-line{ font-size:1.22rem; line-height:2.05; color:var(--plum); min-height:1.6em; white-space:pre-line; }
 .cursor-blink{ display:inline-block; width:2px; background:var(--rose-deep); animation:blink 1s step-start infinite; margin-left:2px; }
 @keyframes blink{ 50%{ opacity:0; } }
 
@@ -157,16 +157,16 @@ h1.hero-title{ font-size:clamp(2.6rem,7vw,4.6rem); color:var(--rose-deep); margi
   width:52px; height:52px; background:inherit; border-left:1px solid rgba(212,101,138,.25); border-top:1px solid rgba(212,101,138,.25);
   border-radius:8px 0 0 0;
 }
-.heart-card p{ text-align:left; line-height:1.85; font-size:1.02rem; color:var(--plum); white-space:pre-line; }
+.heart-card p{ text-align:left; line-height:1.9; font-size:1.14rem; color:var(--plum); white-space:pre-line; }
 
 /* =====================================================
    SCENE 3 — Reasons
 ===================================================== */
-#scene3{ background:linear-gradient(180deg,var(--blush) 0%, #fdf1e8 100%); flex-direction:column; }
+#scene3{ background:linear-gradient(180deg,var(--blush) 0%, var(--lavender) 55%, #fdf1e8 100%); flex-direction:column; }
 .reason-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.6rem; }
 .reason-card{
-  background:#fff; border-radius:16px; padding:1rem 1.1rem; box-shadow:0 8px 20px rgba(184,71,104,.14);
-  border:1px solid rgba(212,101,138,.18); font-size:.96rem; text-align:left; opacity:0; transform:translateY(24px);
+  background:#fff; border-radius:16px; padding:1.1rem 1.2rem; box-shadow:0 8px 20px rgba(184,71,104,.14);
+  border:1px solid rgba(212,101,138,.18); font-size:1.06rem; text-align:left; opacity:0; transform:translateY(24px);
   transition:opacity .6s ease, transform .6s ease;
 }
 .reason-card.show{ opacity:1; transform:translateY(0); }
@@ -195,19 +195,42 @@ h1.hero-title{ font-size:clamp(2.6rem,7vw,4.6rem); color:var(--rose-deep); margi
 /* =====================================================
    SCENE 6 — Envelope Letter
 ===================================================== */
-#scene6{ background:linear-gradient(180deg,var(--blush),var(--lavender)); }
-.envelope{ width:min(320px,80vw); margin:0 auto; position:relative; cursor:pointer; }
-.envelope-body{ background:linear-gradient(180deg,#fff,#fbeaf0); border-radius:10px; height:190px; box-shadow:0 16px 34px rgba(184,71,104,.28); position:relative; overflow:hidden; }
+#scene6{ background:linear-gradient(180deg,var(--blush) 0%, var(--lavender) 55%, var(--blush) 100%); }
+.envelope{ width:min(480px,92vw); margin:0 auto; position:relative; cursor:pointer; }
+.envelope-body{ background:linear-gradient(180deg,#fff,#f6f0fb); border-radius:14px; min-height:220px; height:auto; box-shadow:0 18px 40px rgba(150,110,190,.28); position:relative; overflow:hidden; border:1px solid rgba(202,160,224,.35); }
 .envelope-flap{
   position:absolute; top:0; left:0; width:100%; height:100%;
-  background:linear-gradient(135deg,var(--rose),var(--rose-deep)); clip-path:polygon(0 0,50% 55%,100% 0);
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep)); clip-path:polygon(0 0,50% 42%,100% 0);
   transform-origin:top; transition:transform .8s cubic-bezier(.3,1,.4,1); z-index:2;
 }
 .envelope.open .envelope-flap{ transform:rotateX(180deg); }
-.envelope-seal{ position:absolute; top:44%; left:50%; transform:translate(-50%,-50%); font-size:1.6rem; z-index:3; }
+.envelope-seal{ position:absolute; top:30%; left:50%; transform:translate(-50%,-50%); font-size:1.8rem; z-index:3; }
 .envelope.open .envelope-seal{ display:none; }
-.envelope-note{ position:relative; z-index:1; padding:1.2rem 1.1rem; font-size:.92rem; text-align:left; line-height:1.7; opacity:0; transition:opacity .6s ease .4s; white-space:pre-line; }
+.envelope-note{ position:relative; z-index:1; padding:2.2rem 1.8rem 1.8rem; font-size:1.08rem; text-align:left; line-height:1.9; opacity:0; transition:opacity .6s ease .4s; white-space:pre-line; }
 .envelope.open .envelope-note{ opacity:1; }
+
+/* =====================================================
+   SCENE 6.5 — Our Memories (photo slideshow)
+===================================================== */
+#scene-memories{ background:linear-gradient(180deg,var(--lavender) 0%, #f3e8fb 45%, var(--blush) 100%); }
+.memory-frame{
+  position:relative; width:min(400px,88vw); aspect-ratio:3/4; margin:1.6rem auto 0;
+  border-radius:26px; overflow:hidden; box-shadow:0 24px 50px rgba(150,110,190,.32);
+  border:5px solid #fff; outline:1px solid rgba(202,160,224,.4);
+}
+.memory-frame::after{
+  content:''; position:absolute; inset:0; border-radius:22px;
+  box-shadow:inset 0 0 40px rgba(230,217,244,.55); pointer-events:none; z-index:3;
+}
+.memory-img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0;
+  transform:scale(1.04); transition:opacity 1.4s ease, transform 6s ease;
+}
+.memory-img.active{ opacity:1; transform:scale(1); }
+.memory-dots{ display:flex; gap:.5rem; justify-content:center; margin-top:1.1rem; }
+.memory-dots span{ width:8px; height:8px; border-radius:50%; background:rgba(184,71,104,.25); transition:.3s; }
+.memory-dots span.active{ background:var(--rose-deep); transform:scale(1.3); }
+.memory-caption{ margin-top:1rem; font-size:1.1rem; color:var(--rose-deep); font-family:'Great Vibes',cursive; min-height:1.6em; }
 
 /* =====================================================
    SCENE 7 — Wish Upon a Star
@@ -227,7 +250,7 @@ h1.hero-title{ font-size:clamp(2.6rem,7vw,4.6rem); color:var(--rose-deep); margi
 #scene8{ background:linear-gradient(180deg,var(--lavender),var(--cream)); }
 .promise-wall{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin-top:1.6rem; }
 .sticky{
-  padding:1rem .9rem; border-radius:4px; font-size:.9rem; text-align:left; line-height:1.4;
+  padding:1.1rem 1rem; border-radius:4px; font-size:1rem; text-align:left; line-height:1.5;
   box-shadow:2px 6px 14px rgba(0,0,0,.12); transform:rotate(var(--rot,0deg)); opacity:0; transition:opacity .5s ease, transform .5s ease;
 }
 .sticky.show{ opacity:1; }
@@ -309,6 +332,7 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
   .heart-card{ padding:2.2rem 1.2rem 2.6rem; }
   section{ padding:4rem 1.1rem; }
   .countdown-num{ font-size:4rem; }
+  .memory-frame{ width:88vw; }
 }
 </style>
 </head>
@@ -350,7 +374,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <section id="scene2">
   <div class="floaters" id="floaters2"></div>
   <div class="section-inner">
-    <div class="eyebrow">Scene Two</div>
     <h2 class="scene-title">My Heartfelt Apology</h2>
     <div class="heart-card" id="letter-card">
       <p id="letter-text"></p>
@@ -361,7 +384,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <!-- ============ SCENE 3 : REASONS I LOVE YOU ============ -->
 <section id="scene3">
   <div class="section-inner">
-    <div class="eyebrow">Scene Three</div>
     <h2 class="scene-title">Reasons Why I Love You</h2>
     <div class="reason-grid" id="reason-grid"></div>
   </div>
@@ -371,7 +393,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <section id="scene4">
   <div class="floaters" id="floaters4"></div>
   <div class="section-inner">
-    <div class="eyebrow">Scene Four</div>
     <h2 class="scene-title">Memory Garden</h2>
     <p style="opacity:.8;margin-bottom:.4rem;">Tap a flower to open a little memory 🌸</p>
     <div class="garden-grid" id="garden-grid"></div>
@@ -381,7 +402,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <!-- ============ SCENE 5 : TEDDY HUG ============ -->
 <section id="scene5">
   <div class="section-inner">
-    <div class="eyebrow">Scene Five</div>
     <div class="teddy-hug" id="hug-teddy">🧸</div>
     <h2 class="scene-title" style="margin-top:1rem;">Sending You the Biggest Virtual Hug</h2>
     <button class="btn" id="hug-btn">Hug Me 🤗</button>
@@ -391,7 +411,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <!-- ============ SCENE 6 : LOVE LETTER ENVELOPE ============ -->
 <section id="scene6">
   <div class="section-inner">
-    <div class="eyebrow">Scene Six</div>
     <h2 class="scene-title">A Little Love Letter</h2>
     <div class="envelope" id="envelope">
       <div class="envelope-body">
@@ -404,11 +423,28 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
   </div>
 </section>
 
+<!-- ============ SCENE 6.5 : OUR MEMORIES ============ -->
+<section id="scene-memories">
+  <div class="section-inner">
+    <h2 class="scene-title">Our Memories</h2>
+    <p style="opacity:.8;">A few moments I never want to forget.</p>
+    <div class="memory-frame" id="memory-frame">
+      <img src="img1.jpeg" class="memory-img active" alt="A memory together">
+      <img src="img2.jpeg" class="memory-img" alt="A memory together">
+      <img src="img3.jpeg" class="memory-img" alt="A memory together">
+      <img src="img4.jpeg" class="memory-img" alt="A memory together">
+    </div>
+    <div class="memory-dots" id="memory-dots">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+    <p class="memory-caption cursive" id="memory-caption">Every memory with you is a treasure.</p>
+  </div>
+</section>
+
 <!-- ============ SCENE 7 : WISH UPON A STAR ============ -->
 <section id="scene7">
   <div class="moon eastertegg-moon" id="moon">🌙</div>
   <div class="section-inner">
-    <div class="eyebrow" style="color:#e4d6f7;">Scene Seven</div>
     <h2 class="scene-title">Wish Upon a Star</h2>
     <p class="subtext" style="opacity:.85;">Tap the stars — each one holds something I miss.</p>
     <div class="star-field" id="star-field"></div>
@@ -418,7 +454,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <!-- ============ SCENE 8 : PROMISE WALL ============ -->
 <section id="scene8">
   <div class="section-inner">
-    <div class="eyebrow">Scene Eight</div>
     <h2 class="scene-title">My Promise Wall</h2>
     <div class="promise-wall" id="promise-wall"></div>
   </div>
@@ -427,7 +462,6 @@ footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8
 <!-- ============ MINI GAMES ============ -->
 <section id="scene-games">
   <div class="section-inner">
-    <div class="eyebrow">A Few Little Games</div>
     <h2 class="scene-title">Just for Fun 🎮</h2>
   </div>
 
@@ -667,9 +701,11 @@ spawnFloaters('floaters-final', ['💖','✨','🌼'], 10);
 ===================================================================== */
 async function startScene1(){
   const el = document.getElementById('tw1');
-  await typeText(el, "This isn't just a website...\nIt's every feeling I couldn't express properly.", 26);
-  await wait(900);
-  await typeText(el, "This isn't just a website...\nIt's every feeling I couldn't express properly.\n\nPlease stay with me for just a few minutes.", 12);
+  const line1 = "This isn't just a website...\nit's every quiet 'I'm sorry' I never said out loud,\nwrapped gently in something I hope makes you smile.";
+  const line2 = line1 + "\n\nSo take my hand for just a few minutes,\nand let me show you my heart, one soft moment at a time.";
+  await typeText(el, line1, 24);
+  await wait(1000);
+  await typeText(el, line2, 12);
   document.getElementById('begin-btn').style.display = 'inline-block';
 }
 document.getElementById('begin-btn').addEventListener('click', ()=>{
@@ -834,6 +870,51 @@ document.getElementById('envelope').addEventListener('click', function(){
   this.classList.add('open');
   typeText(document.getElementById('envelope-note'), envelopeText, 16);
 }, {once:true});
+
+/* =====================================================================
+   SCENE 6.5 — Our Memories: smooth crossfade slideshow
+===================================================================== */
+(function memorySlideshow(){
+  const imgs = document.querySelectorAll('#memory-frame .memory-img');
+  const dots = document.querySelectorAll('#memory-dots span');
+  const caption = document.getElementById('memory-caption');
+  const captions = [
+    "Every memory with you is a treasure.",
+    "You make ordinary moments unforgettable.",
+    "I love how easy it is to smile with you.",
+    "Here's to a thousand more moments like these."
+  ];
+  let idx = 0;
+  let timer = null;
+
+  function showSlide(next){
+    imgs[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = next;
+    imgs[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    caption.style.opacity = 0;
+    setTimeout(()=>{ caption.textContent = captions[idx]; caption.style.transition='opacity .6s ease'; caption.style.opacity = 1; }, 300);
+  }
+
+  function startAutoplay(){
+    if(timer) return;
+    timer = setInterval(()=>{ showSlide((idx+1) % imgs.length); }, 3600);
+  }
+  function stopAutoplay(){ clearInterval(timer); timer = null; }
+
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) startAutoplay(); else stopAutoplay();
+    });
+  },{threshold:.3}).observe(document.getElementById('scene-memories'));
+
+  dots.forEach((dot,i)=>{
+    dot.style.cursor='pointer';
+    dot.style.pointerEvents='auto';
+    dot.addEventListener('click', ()=> showSlide(i));
+  });
+})();
 
 /* =====================================================================
    SCENE 7 — wish upon a star + moon easter egg
