@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nikhat ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   ROOT TOKENS
+===================================================== */
+:root{
+  --cream:#fdf6ee;
+  --peach:#fbdcc4;
+  --blush:#f9d9e2;
+  --lavender:#e6d9f4;
+  --rose:#d4658a;
+  --rose-deep:#b84768;
+  --rose-gold:#caa07a;
+  --gold:#f0c48a;
+  --plum:#4a2e3d;
+  --night:#2b2140;
+  --night2:#40315c;
+  --white:#ffffff;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:'Quicksand', sans-serif;
+  color:var(--plum);
+  background:linear-gradient(180deg,var(--cream),var(--peach) 30%, var(--blush) 60%, var(--lavender) 100%);
+  overflow-x:hidden; width:100%;
+}
+h1,h2,h3,.cursive{ font-family:'Great Vibes', cursive; font-weight:400; }
+.display{ font-family:'Playfair Display', serif; }
+::selection{ background:var(--rose); color:#fff; }
+button{ font-family:inherit; }
+img{ max-width:100%; }
+
+/* =====================================================
+   LOADER
+===================================================== */
+#loader{
+  position:fixed; inset:0; z-index:9999;
+  background:radial-gradient(ellipse at center, #fff0f4 0%, var(--lavender) 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:opacity .9s ease, visibility .9s ease; text-align:center; padding:1rem;
+}
+#loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.loader-teddy{ font-size:4.5rem; animation:walk 1.4s ease-in-out infinite; }
+@keyframes walk{ 0%,100%{ transform:translateX(-14px) rotate(-4deg);} 50%{ transform:translateX(14px) rotate(4deg);} }
+.loader-text{ margin-top:1.4rem; font-size:1.25rem; color:var(--rose-deep); min-height:2.4em; max-width:420px; }
+.loader-bar{ margin-top:1.3rem; width:230px; height:6px; border-radius:6px; background:rgba(216,110,140,.2); overflow:hidden; }
+.loader-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:6px; transition:width .3s linear; }
+
+/* Tap to begin gate */
+#tap-gate{
+  position:fixed; inset:0; z-index:9998; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(ellipse at center, #fff3f6 0%, var(--blush) 100%);
+  cursor:pointer; opacity:0; visibility:hidden; transition:opacity .8s ease, visibility .8s ease;
+  flex-direction:column; text-align:center; padding:1rem;
+}
+#tap-gate.show{ opacity:1; visibility:visible; }
+#tap-gate .rose-line{ font-size:1.6rem; color:var(--rose-deep); }
+#tap-gate .tap-line{ font-size:2.2rem; margin-top:.6rem; animation:pulseText 1.6s ease-in-out infinite; }
+@keyframes pulseText{ 0%,100%{ opacity:.7; } 50%{ opacity:1; } }
+
+/* =====================================================
+   FIXED UI: MUSIC PANEL, PROGRESS, TOAST
+===================================================== */
+#music-panel{
+  position:fixed; top:14px; right:14px; z-index:500;
+  background:rgba(255,255,255,.8); backdrop-filter:blur(8px);
+  border:1px solid rgba(212,101,138,.3); border-radius:30px;
+  display:flex; align-items:center; gap:.5rem; padding:.5rem .9rem;
+  box-shadow:0 8px 20px rgba(180,70,100,.18);
+}
+#music-panel button{
+  border:none; background:transparent; font-size:1.25rem; cursor:pointer; line-height:1;
+}
+#music-panel input[type=range]{ width:70px; accent-color:var(--rose); cursor:pointer; }
+@media(max-width:520px){ #music-panel{ padding:.4rem .6rem; gap:.3rem;} #music-panel input[type=range]{ width:50px; } }
+
+#scroll-progress{
+  position:fixed; top:0; left:0; height:4px; width:0%; z-index:600;
+  background:linear-gradient(90deg,var(--rose),var(--gold)); transition:width .1s linear;
+}
+
+#toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+  background:var(--white); color:var(--rose-deep); padding:.85rem 1.4rem; border-radius:14px;
+  box-shadow:0 12px 30px rgba(184,71,104,.3); font-weight:600; z-index:900; text-align:center;
+  opacity:0; pointer-events:none; transition:opacity .4s ease, transform .4s ease; max-width:86vw;
+}
+#toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+.cursor-heart{ position:fixed; pointer-events:none; z-index:650; font-size:14px; animation:cursorFade 1s ease-out forwards; }
+@keyframes cursorFade{ 0%{ opacity:.9; transform:translateY(0) scale(1);} 100%{ opacity:0; transform:translateY(-40px) scale(.4);} }
+
+/* =====================================================
+   SHARED SECTION / FLOATER STYLES
+===================================================== */
+section{ position:relative; min-height:100svh; width:100%; display:flex; align-items:center; justify-content:center; padding:5.5rem 1.4rem; overflow:hidden; }
+.section-inner{ position:relative; z-index:5; max-width:820px; text-align:center; width:100%; }
+.eyebrow{ letter-spacing:2px; text-transform:uppercase; font-size:.78rem; color:var(--rose-deep); opacity:.75; margin-bottom:.4rem; }
+.scene-title{ font-size:clamp(2.2rem,6vw,3.4rem); color:var(--rose-deep); margin-bottom:1rem; text-shadow:0 4px 16px rgba(212,101,138,.2); }
+
+.floaters{ position:absolute; inset:0; overflow:hidden; z-index:1; pointer-events:none; }
+.floater{ position:absolute; top:-10%; opacity:.85; will-change:transform; animation:fall linear infinite; }
+@keyframes fall{
+  0%{ transform:translateY(-10vh) translateX(0) rotate(0deg); }
+  50%{ transform:translateY(50vh) translateX(30px) rotate(180deg); }
+  100%{ transform:translateY(110vh) translateX(-20px) rotate(360deg); }
+}
+.flower-pop{ position:absolute; font-size:2rem; opacity:0; animation:bloom 4s ease-in-out infinite; pointer-events:none; }
+@keyframes bloom{ 0%{ opacity:0; transform:scale(.2) rotate(0deg);} 30%{ opacity:1; transform:scale(1) rotate(10deg);} 70%{ opacity:1; transform:scale(1) rotate(-6deg);} 100%{ opacity:0; transform:scale(.3) rotate(0deg);} }
+
+.btn{
+  position:relative; display:inline-block; margin-top:1.4rem; padding:.95rem 2.2rem;
+  border-radius:50px; border:none; cursor:pointer; font-weight:700; font-size:1.02rem; letter-spacing:.3px; color:#fff;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+  box-shadow:0 10px 24px rgba(184,71,104,.35); transition:transform .25s ease, box-shadow .25s ease;
+}
+.btn:hover{ transform:translateY(-3px) scale(1.04); box-shadow:0 14px 30px rgba(184,71,104,.45); }
+.btn:active{ transform:translateY(0) scale(.98); }
+.btn.ghost{ background:linear-gradient(135deg,#cbb7dd,#a98fc4); }
+.sparkle{ position:absolute; pointer-events:none; font-size:.9rem; color:#fff; animation:sparkleFly .7s ease-out forwards; }
+@keyframes sparkleFly{ 0%{ opacity:1; transform:translate(0,0) scale(.4);} 100%{ opacity:0; transform:translate(var(--sx),var(--sy)) scale(1.2);} }
+
+.typewriter-line{ font-size:1.1rem; line-height:2; color:var(--plum); min-height:1.6em; white-space:pre-line; }
+.cursor-blink{ display:inline-block; width:2px; background:var(--rose-deep); animation:blink 1s step-start infinite; margin-left:2px; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* =====================================================
+   SCENE 1 — First Message
+===================================================== */
+#scene1{ background:radial-gradient(ellipse at 50% 15%, #fff0f5 0%, var(--peach) 55%, var(--blush) 100%); }
+.teddy-flowers{ font-size:6rem; display:inline-block; animation:sway 3.2s ease-in-out infinite; cursor:pointer; }
+@keyframes sway{ 0%,100%{ transform:rotate(-4deg);} 50%{ transform:rotate(4deg);} }
+h1.hero-title{ font-size:clamp(2.6rem,7vw,4.6rem); color:var(--rose-deep); margin:1rem 0 .6rem; }
+
+/* =====================================================
+   SCENE 2 — Heart Letter
+===================================================== */
+#scene2{ background:linear-gradient(180deg,var(--lavender) 0%, #fdeef1 60%, var(--blush) 100%); }
+.heart-card{
+  position:relative; background:linear-gradient(180deg,#fff,#fff6f8);
+  padding:3rem 2rem 3.2rem; border-radius:22px 22px 60% 60%/22px 22px 30% 30%;
+  box-shadow:0 20px 50px rgba(184,71,104,.22); border:1px solid rgba(212,101,138,.25);
+  max-width:580px; margin:1.3rem auto 0; transform:scale(.85); opacity:0;
+  transition:transform .8s cubic-bezier(.2,.8,.3,1.1), opacity .8s ease;
+}
+.heart-card.opened{ transform:scale(1); opacity:1; }
+.heart-card::before{
+  content:''; position:absolute; top:-26px; left:50%; transform:translateX(-50%) rotate(45deg);
+  width:52px; height:52px; background:inherit; border-left:1px solid rgba(212,101,138,.25); border-top:1px solid rgba(212,101,138,.25);
+  border-radius:8px 0 0 0;
+}
+.heart-card p{ text-align:left; line-height:1.85; font-size:1.02rem; color:var(--plum); white-space:pre-line; }
+
+/* =====================================================
+   SCENE 3 — Reasons
+===================================================== */
+#scene3{ background:linear-gradient(180deg,var(--blush) 0%, #fdf1e8 100%); flex-direction:column; }
+.reason-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.6rem; }
+.reason-card{
+  background:#fff; border-radius:16px; padding:1rem 1.1rem; box-shadow:0 8px 20px rgba(184,71,104,.14);
+  border:1px solid rgba(212,101,138,.18); font-size:.96rem; text-align:left; opacity:0; transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.reason-card.show{ opacity:1; transform:translateY(0); }
+
+/* =====================================================
+   SCENE 4 — Memory Garden
+===================================================== */
+#scene4{ background:linear-gradient(180deg,#fdf1e8 0%, var(--peach) 60%, var(--blush) 100%); }
+.garden-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(64px,1fr)); gap:1rem; max-width:600px; margin:1.6rem auto 0; }
+.garden-flower{
+  font-size:2.4rem; background:none; border:none; cursor:pointer; transition:transform .3s ease, filter .3s ease;
+  filter:drop-shadow(0 6px 8px rgba(184,71,104,.18));
+}
+.garden-flower:hover{ transform:scale(1.2) rotate(-6deg); }
+.garden-flower.opened{ filter:drop-shadow(0 0 10px var(--gold)); }
+
+/* =====================================================
+   SCENE 5 — Teddy Hug
+===================================================== */
+#scene5{ background:radial-gradient(ellipse at 50% 30%, #fff0f5, var(--lavender)); }
+.teddy-hug{ font-size:7rem; display:inline-block; transition:transform .5s cubic-bezier(.3,1.4,.5,1); }
+.teddy-hug.hugging{ transform:scale(1.3) rotate(0deg); }
+.heart-burst-piece{ position:fixed; z-index:700; pointer-events:none; animation:burstOut 1.1s ease-out forwards; }
+@keyframes burstOut{ to{ transform:translate(var(--bx),var(--by)) scale(.3); opacity:0; } }
+
+/* =====================================================
+   SCENE 6 — Envelope Letter
+===================================================== */
+#scene6{ background:linear-gradient(180deg,var(--blush),var(--lavender)); }
+.envelope{ width:min(320px,80vw); margin:0 auto; position:relative; cursor:pointer; }
+.envelope-body{ background:linear-gradient(180deg,#fff,#fbeaf0); border-radius:10px; height:190px; box-shadow:0 16px 34px rgba(184,71,104,.28); position:relative; overflow:hidden; }
+.envelope-flap{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:linear-gradient(135deg,var(--rose),var(--rose-deep)); clip-path:polygon(0 0,50% 55%,100% 0);
+  transform-origin:top; transition:transform .8s cubic-bezier(.3,1,.4,1); z-index:2;
+}
+.envelope.open .envelope-flap{ transform:rotateX(180deg); }
+.envelope-seal{ position:absolute; top:44%; left:50%; transform:translate(-50%,-50%); font-size:1.6rem; z-index:3; }
+.envelope.open .envelope-seal{ display:none; }
+.envelope-note{ position:relative; z-index:1; padding:1.2rem 1.1rem; font-size:.92rem; text-align:left; line-height:1.7; opacity:0; transition:opacity .6s ease .4s; white-space:pre-line; }
+.envelope.open .envelope-note{ opacity:1; }
+
+/* =====================================================
+   SCENE 7 — Wish Upon a Star
+===================================================== */
+#scene7{ background:radial-gradient(ellipse at 50% 0%, var(--night2), var(--night) 70%); color:#f4ecff; min-height:120svh; }
+#scene7 .scene-title{ color:#ffe3ef; text-shadow:0 0 16px rgba(255,255,255,.3); }
+#scene7 p.subtext{ color:#e4d6f7; }
+.moon{ position:absolute; top:6%; right:8%; font-size:3.4rem; cursor:pointer; filter:drop-shadow(0 0 20px rgba(255,255,220,.6)); z-index:3; }
+.star-field{ position:relative; width:100%; max-width:640px; height:340px; margin:1.6rem auto 0; }
+.star-btn{ position:absolute; background:none; border:none; font-size:1.4rem; cursor:pointer; color:#fff8e0; text-shadow:0 0 8px rgba(255,255,200,.9); animation:twinkle 2.4s ease-in-out infinite; }
+@keyframes twinkle{ 0%,100%{ opacity:.4; } 50%{ opacity:1; } }
+.star-btn.clicked{ opacity:1 !important; transform:scale(1.4); }
+
+/* =====================================================
+   SCENE 8 — Promise Wall
+===================================================== */
+#scene8{ background:linear-gradient(180deg,var(--lavender),var(--cream)); }
+.promise-wall{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin-top:1.6rem; }
+.sticky{
+  padding:1rem .9rem; border-radius:4px; font-size:.9rem; text-align:left; line-height:1.4;
+  box-shadow:2px 6px 14px rgba(0,0,0,.12); transform:rotate(var(--rot,0deg)); opacity:0; transition:opacity .5s ease, transform .5s ease;
+}
+.sticky.show{ opacity:1; }
+.sticky:nth-child(4n+1){ background:#fde6ee; }
+.sticky:nth-child(4n+2){ background:#fff2d9; }
+.sticky:nth-child(4n+3){ background:#e9defb; }
+.sticky:nth-child(4n+4){ background:#dcf3ea; }
+
+/* =====================================================
+   MINI GAMES SECTION
+===================================================== */
+#scene-games{ background:linear-gradient(180deg,var(--cream),var(--peach)); flex-direction:column; gap:3rem; }
+.game-block{ background:#fff; border-radius:22px; padding:1.8rem 1.4rem; box-shadow:0 14px 34px rgba(184,71,104,.16); max-width:640px; margin:0 auto; width:100%; }
+.game-title{ font-size:1.6rem; color:var(--rose-deep); margin-bottom:.3rem; }
+.game-sub{ font-size:.88rem; opacity:.75; margin-bottom:1rem; }
+
+/* Catch my love */
+#catch-area{ position:relative; height:280px; background:linear-gradient(180deg,#fef2f6,#fde3ec); border-radius:16px; overflow:hidden; }
+.falling-heart{ position:absolute; top:-30px; font-size:1.6rem; background:none; border:none; cursor:pointer; animation:dropHeart linear forwards; }
+@keyframes dropHeart{ to{ transform:translateY(300px); } }
+#catch-score{ font-weight:700; color:var(--rose-deep); }
+
+/* bloom garden */
+#bloom-area{ position:relative; height:220px; background:linear-gradient(180deg,#f4fbef,#e7f6de); border-radius:16px; overflow:hidden; cursor:pointer; }
+#bloom-area span{ position:absolute; font-size:1.6rem; animation:popGrow .5s ease; }
+@keyframes popGrow{ from{ transform:scale(0); } to{ transform:scale(1); } }
+
+/* build my heart */
+.puzzle-row{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:.6rem; }
+.puzzle-piece{
+  width:64px; height:64px; border-radius:14px; border:2px solid var(--rose); background:#fff;
+  font-size:1.4rem; font-weight:700; color:var(--rose-deep); cursor:pointer; transition:.25s;
+}
+.puzzle-piece.correct{ background:var(--rose); color:#fff; transform:scale(1.05); }
+.puzzle-piece.shake{ animation:shakeX .4s ease; }
+@keyframes shakeX{ 0%,100%{ transform:translateX(0);} 25%{ transform:translateX(-6px);} 75%{ transform:translateX(6px);} }
+
+/* find teddy */
+.hide-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; max-width:320px; margin:.6rem auto 0; }
+.hide-cell{ font-size:2rem; background:#fff; border:2px solid transparent; border-radius:14px; padding:.6rem 0; cursor:pointer; transition:.25s; }
+.hide-cell:hover{ border-color:var(--rose); }
+.hide-cell.wrong{ animation:shakeX .4s ease; }
+.hide-cell.found{ background:var(--gold); }
+
+/* =====================================================
+   SCENE 9 — Countdown
+===================================================== */
+#scene9{ background:linear-gradient(180deg,var(--night),var(--night2)); color:#fff; }
+.countdown-num{ font-size:6rem; font-weight:700; color:#ffe3ef; font-family:'Playfair Display',serif; }
+.big-heart{ font-size:5rem; animation:heartPulse 1.4s ease-in-out infinite; }
+@keyframes heartPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.15); } }
+.fade-line{ font-size:1.4rem; margin-top:1rem; opacity:0; transition:opacity .8s ease; color:#ffe9f0; }
+.fade-line.show{ opacity:1; }
+
+/* =====================================================
+   FINAL SCENE
+===================================================== */
+#scene-final{ background:linear-gradient(180deg,var(--blush) 0%, #f3e3ee 50%, var(--lavender) 100%); padding-bottom:6rem; }
+.teddy-final{ font-size:8rem; display:inline-block; animation:sway 3.6s ease-in-out infinite; cursor:pointer; }
+.firefly{ position:absolute; width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px 4px rgba(240,196,138,.9); animation:fireflyFloat 6s ease-in-out infinite; }
+@keyframes fireflyFloat{ 0%,100%{ transform:translate(0,0); opacity:.4;} 50%{ transform:translate(20px,-30px); opacity:1;} }
+.glow-heart{ position:absolute; color:var(--rose); text-shadow:0 0 14px rgba(212,101,138,.8); animation:glowPulse 2.4s ease-in-out infinite; }
+@keyframes glowPulse{ 0%,100%{ opacity:.35; transform:scale(.9);} 50%{ opacity:1; transform:scale(1.15);} }
+.btn-row{ display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap; margin-top:2rem; position:relative; min-height:80px; }
+#final-no{ position:relative; transition:left .25s ease, top .25s ease, transform .25s ease; }
+#celebration-text{ display:none; margin-top:1.8rem; font-size:1.7rem; color:var(--rose-deep); font-family:'Great Vibes',cursive; animation:popIn .6s ease; }
+@keyframes popIn{ 0%{ opacity:0; transform:scale(.6);} 60%{ transform:scale(1.08);} 100%{ opacity:1; transform:scale(1);} }
+.confetti-piece{ position:fixed; top:-5%; z-index:800; pointer-events:none; animation:confettiFall linear forwards; }
+@keyframes confettiFall{ to{ transform:translateY(110vh) rotate(720deg); opacity:.2; } }
+.dancing{ animation:dance .5s ease-in-out infinite !important; }
+@keyframes dance{ 0%,100%{ transform:rotate(-12deg) translateY(0);} 50%{ transform:rotate(12deg) translateY(-14px);} }
+
+footer{ position:relative; z-index:5; text-align:center; padding:2.2rem 1rem 2.8rem; font-family:'Great Vibes', cursive; font-size:1.3rem; color:var(--rose-deep); line-height:1.6; }
+
+@media(max-width:640px){
+  .teddy-flowers{ font-size:4.4rem; }
+  .teddy-hug{ font-size:5rem; }
+  .teddy-final{ font-size:5.4rem; }
+  .heart-card{ padding:2.2rem 1.2rem 2.6rem; }
+  section{ padding:4rem 1.1rem; }
+  .countdown-num{ font-size:4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <div class="loader-teddy">🧸🌷</div>
+  <div class="loader-text display" id="loader-text">Someone has something very special to tell you...</div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loader-bar-fill"></div></div>
+</div>
+
+<!-- ============ TAP TO BEGIN ============ -->
+<div id="tap-gate">
+  <div class="rose-line cursive">🌹 Tap anywhere to begin</div>
+</div>
+
+<!-- ============ FIXED UI ============ -->
+<div id="scroll-progress"></div>
+<div id="music-panel">
+  <button id="music-toggle" title="Play/Pause music" aria-label="Play or pause music">🔇</button>
+  <input id="music-volume" type="range" min="0" max="100" value="30" aria-label="Volume">
+  <button id="music-mute" title="Mute" aria-label="Mute">🔈</button>
+</div>
+<div id="toast"></div>
+
+<!-- ============ SCENE 1 : FIRST MESSAGE ============ -->
+<section id="scene1">
+  <div class="floaters" id="floaters1"></div>
+  <div class="section-inner">
+    <div class="teddy-flowers eastertegg-teddy" id="teddy1">🧸🌷</div>
+    <h1 class="hero-title">Dear Nikhat ❤️</h1>
+    <p class="typewriter-line" id="tw1"></p>
+    <button class="btn" id="begin-btn" style="display:none;">Let's Begin</button>
+  </div>
+</section>
+
+<!-- ============ SCENE 2 : HEARTFELT APOLOGY ============ -->
+<section id="scene2">
+  <div class="floaters" id="floaters2"></div>
+  <div class="section-inner">
+    <div class="eyebrow">Scene Two</div>
+    <h2 class="scene-title">My Heartfelt Apology</h2>
+    <div class="heart-card" id="letter-card">
+      <p id="letter-text"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCENE 3 : REASONS I LOVE YOU ============ -->
+<section id="scene3">
+  <div class="section-inner">
+    <div class="eyebrow">Scene Three</div>
+    <h2 class="scene-title">Reasons Why I Love You</h2>
+    <div class="reason-grid" id="reason-grid"></div>
+  </div>
+</section>
+
+<!-- ============ SCENE 4 : MEMORY GARDEN ============ -->
+<section id="scene4">
+  <div class="floaters" id="floaters4"></div>
+  <div class="section-inner">
+    <div class="eyebrow">Scene Four</div>
+    <h2 class="scene-title">Memory Garden</h2>
+    <p style="opacity:.8;margin-bottom:.4rem;">Tap a flower to open a little memory 🌸</p>
+    <div class="garden-grid" id="garden-grid"></div>
+  </div>
+</section>
+
+<!-- ============ SCENE 5 : TEDDY HUG ============ -->
+<section id="scene5">
+  <div class="section-inner">
+    <div class="eyebrow">Scene Five</div>
+    <div class="teddy-hug" id="hug-teddy">🧸</div>
+    <h2 class="scene-title" style="margin-top:1rem;">Sending You the Biggest Virtual Hug</h2>
+    <button class="btn" id="hug-btn">Hug Me 🤗</button>
+  </div>
+</section>
+
+<!-- ============ SCENE 6 : LOVE LETTER ENVELOPE ============ -->
+<section id="scene6">
+  <div class="section-inner">
+    <div class="eyebrow">Scene Six</div>
+    <h2 class="scene-title">A Little Love Letter</h2>
+    <div class="envelope" id="envelope">
+      <div class="envelope-body">
+        <div class="envelope-note" id="envelope-note"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">💌</div>
+      </div>
+    </div>
+    <p style="opacity:.7;margin-top:.8rem;font-size:.9rem;">(tap the envelope to open)</p>
+  </div>
+</section>
+
+<!-- ============ SCENE 7 : WISH UPON A STAR ============ -->
+<section id="scene7">
+  <div class="moon eastertegg-moon" id="moon">🌙</div>
+  <div class="section-inner">
+    <div class="eyebrow" style="color:#e4d6f7;">Scene Seven</div>
+    <h2 class="scene-title">Wish Upon a Star</h2>
+    <p class="subtext" style="opacity:.85;">Tap the stars — each one holds something I miss.</p>
+    <div class="star-field" id="star-field"></div>
+  </div>
+</section>
+
+<!-- ============ SCENE 8 : PROMISE WALL ============ -->
+<section id="scene8">
+  <div class="section-inner">
+    <div class="eyebrow">Scene Eight</div>
+    <h2 class="scene-title">My Promise Wall</h2>
+    <div class="promise-wall" id="promise-wall"></div>
+  </div>
+</section>
+
+<!-- ============ MINI GAMES ============ -->
+<section id="scene-games">
+  <div class="section-inner">
+    <div class="eyebrow">A Few Little Games</div>
+    <h2 class="scene-title">Just for Fun 🎮</h2>
+  </div>
+
+  <div class="game-block">
+    <div class="game-title cursive">❤️ Catch My Love</div>
+    <div class="game-sub">Click the falling hearts to catch them. Caught: <span id="catch-score">0</span></div>
+    <div id="catch-area"></div>
+  </div>
+
+  <div class="game-block">
+    <div class="game-title cursive">🌸 Bloom the Garden</div>
+    <div class="game-sub">Click anywhere in the box to plant a flower.</div>
+    <div id="bloom-area"></div>
+    <p id="bloom-message" style="margin-top:.6rem;font-weight:600;color:var(--rose-deep);"></p>
+  </div>
+
+  <div class="game-block">
+    <div class="game-title cursive">💖 Build My Heart</div>
+    <div class="game-sub">Click the pieces in order: 1 → 2 → 3 → 4</div>
+    <div class="puzzle-row" id="puzzle-row"></div>
+    <p id="puzzle-message" style="margin-top:.6rem;font-weight:600;color:var(--rose-deep);"></p>
+  </div>
+
+  <div class="game-block">
+    <div class="game-title cursive">🐻 Find the Teddy</div>
+    <div class="game-sub">One of these flowers is hiding someone special.</div>
+    <div class="hide-grid" id="hide-grid"></div>
+    <p id="hide-message" style="margin-top:.6rem;font-weight:600;color:var(--rose-deep);"></p>
+  </div>
+</section>
+
+<!-- ============ SCENE 9 : COUNTDOWN ============ -->
+<section id="scene9">
+  <div class="section-inner">
+    <div class="countdown-num" id="countdown-num"></div>
+    <div class="big-heart" id="big-heart" style="display:none;">❤️</div>
+    <p class="fade-line" id="fade-line-1">No matter what happens...</p>
+    <p class="fade-line" id="fade-line-2">I'll always choose you.</p>
+    <p class="fade-line" id="fade-line-3">Every single day.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL SCENE ============ -->
+<section id="scene-final">
+  <div class="floaters" id="floaters-final"></div>
+  <div class="section-inner">
+    <div class="teddy-final eastertegg-teddy" id="teddy-final">🧸🌸</div>
+    <h2 class="scene-title cursive" style="font-size:3rem;">Nikhat ❤️</h2>
+    <p class="typewriter-line" id="tw-final"></p>
+
+    <div class="btn-row" id="final-btn-row">
+      <button class="btn" id="final-yes">I Forgive You ❤️</button>
+      <button class="btn ghost" id="final-no">Not Yet 🥺</button>
+    </div>
+    <div id="celebration-text">You just made me the happiest<br>person alive. ❤️</div>
+  </div>
+</section>
+
+<footer>Made with endless love, countless apologies, infinite hugs,<br>and a heart that will always belong to Nikhat. ❤️</footer>
+
+<script>
+/* =====================================================================
+   HELPERS
+===================================================================== */
+function rand(min,max){ return Math.random()*(max-min)+min; }
+
+function showToast(text, duration=3200){
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(()=>t.classList.remove('show'), duration);
+}
+
+function typeText(el, text, speed){
+  return new Promise(resolve=>{
+    let i=0; el.textContent='';
+    (function step(){
+      if(i<=text.length){ el.textContent=text.slice(0,i); i++; setTimeout(step,speed); }
+      else resolve();
+    })();
+  });
+}
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function spawnFloaters(containerId, emojis, count){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  for(let i=0;i<count;i++){
+    const el = document.createElement('div');
+    el.className = 'floater';
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left = Math.random()*100 + '%';
+    el.style.fontSize = (1 + Math.random()*1.6) + 'rem';
+    const duration = 8 + Math.random()*10;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = (Math.random()*duration) + 's';
+    container.appendChild(el);
+  }
+}
+
+/* =====================================================================
+   LOADER SEQUENCE
+===================================================================== */
+const loaderLines = [
+  "Someone has something very special to tell you...",
+  "Preparing a little surprise for the most beautiful girl...",
+  "For Nikhat ❤️"
+];
+async function runLoader(){
+  document.body.style.overflow = 'hidden';
+  const textEl = document.getElementById('loader-text');
+  const fill = document.getElementById('loader-bar-fill');
+  let progress = 0;
+  const totalTime = 4200;
+  const step = 60;
+  const timer = setInterval(()=>{
+    progress += (100/(totalTime/step));
+    fill.style.width = Math.min(progress,100) + '%';
+    if(progress>=100) clearInterval(timer);
+  }, step);
+
+  for(let i=0;i<loaderLines.length;i++){
+    textEl.style.opacity = 0;
+    await wait(250);
+    textEl.textContent = loaderLines[i];
+    textEl.style.transition = 'opacity .4s ease';
+    textEl.style.opacity = 1;
+    await wait(1250);
+  }
+  await wait(400);
+  document.getElementById('loader').classList.add('hide');
+  const gate = document.getElementById('tap-gate');
+  gate.classList.add('show');
+}
+window.addEventListener('load', runLoader);
+
+document.getElementById('tap-gate').addEventListener('click', function(){
+  this.classList.remove('show');
+  document.body.style.overflow = 'auto';
+  startScene1();
+  tryAutoStartMusic();
+}, {once:true});
+
+/* =====================================================================
+   SCROLL PROGRESS BAR
+===================================================================== */
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  document.getElementById('scroll-progress').style.width = pct + '%';
+});
+
+/* =====================================================================
+   CURSOR FOLLOWING HEARTS
+===================================================================== */
+let lastHeart = 0;
+document.addEventListener('mousemove', (e) => {
+  const now = Date.now();
+  if(now - lastHeart < 90) return;
+  lastHeart = now;
+  const h = document.createElement('div');
+  h.className='cursor-heart';
+  h.textContent = Math.random() > .5 ? '💗' : '✨';
+  h.style.left = (e.clientX - 7) + 'px';
+  h.style.top = (e.clientY - 7) + 'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(), 1000);
+});
+
+/* Sparkles on button hover */
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('mouseenter', ()=>{
+    for(let i=0;i<8;i++){
+      const s = document.createElement('span');
+      s.className='sparkle';
+      s.textContent='✨';
+      const rect = btn.getBoundingClientRect();
+      s.style.left = (rect.width/2) + 'px';
+      s.style.top = (rect.height/2) + 'px';
+      const angle = Math.random()*Math.PI*2;
+      const dist = 30 + Math.random()*30;
+      s.style.setProperty('--sx', Math.cos(angle)*dist + 'px');
+      s.style.setProperty('--sy', Math.sin(angle)*dist + 'px');
+      btn.appendChild(s);
+      setTimeout(()=>s.remove(), 700);
+    }
+  });
+});
+
+/* =====================================================================
+   AMBIENT DECOR SPAWN
+===================================================================== */
+spawnFloaters('floaters1', ['🌸','💗','🌷','✨'], 14);
+spawnFloaters('floaters2', ['🌹','🌺','💮'], 10);
+spawnFloaters('floaters4', ['🌻','🌷','🌼','🦋'], 12);
+spawnFloaters('floaters-final', ['💖','✨','🌼'], 10);
+
+(function fireflies(){
+  const host = document.getElementById('floaters-final');
+  for(let i=0;i<16;i++){
+    const fly = document.createElement('div');
+    fly.className='firefly';
+    fly.style.top = Math.random()*100+'%';
+    fly.style.left = Math.random()*100+'%';
+    fly.style.animationDelay = (Math.random()*6)+'s';
+    fly.style.animationDuration = (4+Math.random()*4)+'s';
+    host.appendChild(fly);
+  }
+  for(let i=0;i<8;i++){
+    const gh = document.createElement('div');
+    gh.className='glow-heart';
+    gh.textContent='❤';
+    gh.style.top = Math.random()*90+'%';
+    gh.style.left = Math.random()*90+'%';
+    gh.style.fontSize = (1+Math.random()*1.4)+'rem';
+    gh.style.animationDelay = (Math.random()*2.4)+'s';
+    host.appendChild(gh);
+  }
+})();
+
+/* Butterflies scene4 (clickable easter egg) */
+(function butterflies(){
+  const host = document.getElementById('floaters4');
+  const positions = [{top:'15%',left:'10%'},{top:'70%',left:'80%'},{top:'30%',left:'75%'}];
+  positions.forEach((p,i)=>{
+    const b = document.createElement('button');
+    b.className='eastertegg-butterfly';
+    b.textContent='🦋';
+    b.style.cssText = `position:absolute; top:${p.top}; left:${p.left}; font-size:1.7rem; background:none; border:none; cursor:pointer; pointer-events:auto; animation:sway ${5+i}s ease-in-out infinite;`;
+    host.appendChild(b);
+  });
+})();
+
+/* =====================================================================
+   SCENE 1 — typewriter intro
+===================================================================== */
+async function startScene1(){
+  const el = document.getElementById('tw1');
+  await typeText(el, "This isn't just a website...\nIt's every feeling I couldn't express properly.", 26);
+  await wait(900);
+  await typeText(el, "This isn't just a website...\nIt's every feeling I couldn't express properly.\n\nPlease stay with me for just a few minutes.", 12);
+  document.getElementById('begin-btn').style.display = 'inline-block';
+}
+document.getElementById('begin-btn').addEventListener('click', ()=>{
+  document.getElementById('scene2').scrollIntoView({behavior:'smooth'});
+});
+
+/* =====================================================================
+   SCENE 2 — heart letter open + typewriter
+===================================================================== */
+const letterFull = `My Dearest Nikhat,
+
+I know I made mistakes.
+Maybe I didn't understand your feelings the way I should have.
+Maybe I hurt your heart without realizing how deeply.
+
+If I could go back in time, I would.
+I would choose kinder words.
+I would choose more patience.
+I would choose making you smile instead of making you upset.
+
+I'm truly sorry.
+Not because I have to say it...
+But because every second you're upset hurts me too.
+
+You deserve nothing but love, respect, happiness, and countless smiles.
+I promise I'll keep trying to become someone who deserves your beautiful heart.`;
+
+let scene2Done = false;
+new IntersectionObserver((entries)=>{
+  entries.forEach(async entry=>{
+    if(entry.isIntersecting && !scene2Done){
+      scene2Done = true;
+      document.getElementById('letter-card').classList.add('opened');
+      await wait(400);
+      typeText(document.getElementById('letter-text'), letterFull, 14);
+    }
+  });
+},{threshold:.3}).observe(document.getElementById('scene2'));
+
+/* =====================================================================
+   SCENE 3 — 30 reasons
+===================================================================== */
+const reasons = [
+"Your smile brightens my darkest days.",
+"Your laugh is my favorite sound.",
+"Your kindness inspires me.",
+"You make ordinary days unforgettable.",
+"You make me want to become a better person.",
+"You understand me like no one else.",
+"You are my peace.",
+"You are my happiness.",
+"You are my favorite notification.",
+"You are my home.",
+"Your voice calms every storm in my head.",
+"You remember the little things that matter.",
+"You believe in me even when I doubt myself.",
+"Your hugs feel like coming home.",
+"You make me laugh until my stomach hurts.",
+"Your patience with me is a quiet kind of love.",
+"You see the best in people, including me.",
+"Your eyes tell stories words can't.",
+"You make simple moments feel magical.",
+"You never give up on us.",
+"You're the first person I want to tell good news to.",
+"You forgive faster than I deserve.",
+"Your strength quietly inspires me every day.",
+"You make my chaotic days feel manageable.",
+"You love with your whole heart.",
+"Your honesty keeps me grounded.",
+"You make me feel safe to be myself.",
+"Your dreams make me want to build a future with you.",
+"You turn ordinary conversations into my favorite memories.",
+"Simply put — I love you, all of you."
+];
+const reasonGrid = document.getElementById('reason-grid');
+reasons.forEach((r,i)=>{
+  const card = document.createElement('div');
+  card.className='reason-card';
+  card.style.transitionDelay = (i%6*0.08)+'s';
+  card.textContent = '❤️ ' + r;
+  reasonGrid.appendChild(card);
+});
+document.querySelectorAll('.reason-card').forEach(card=>{
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('show'); });
+  },{threshold:.15}).observe(card);
+});
+
+/* =====================================================================
+   SCENE 4 — memory garden (15 flowers) + rose easter egg
+===================================================================== */
+const flowerMessages = [
+"I still remember every beautiful conversation we had.",
+"You've made my life brighter than you know.",
+"I never stop thanking life for bringing you into it.",
+"No fight can ever erase how much you mean to me.",
+"That day we laughed until we cried — I replay it often.",
+"Every little memory with you feels like a treasure.",
+"You made an ordinary afternoon feel like a movie scene.",
+"I keep our silly inside jokes safe in my heart.",
+"The way you said my name that day — I still smile.",
+"You've taught me what patience and love really look like.",
+"Every photo of us tells a story I never want to forget.",
+"You make the smallest moments the ones I remember most.",
+"I remember exactly how you looked the day we met.",
+"Our late-night talks are some of my favorite memories.",
+"With you, even ordinary days became my favorite ones."
+];
+const gardenIcons = ['🌹','🌷','🌻','🌼','🌸'];
+const gardenGrid = document.getElementById('garden-grid');
+flowerMessages.forEach((msg,i)=>{
+  const btn = document.createElement('button');
+  btn.className='garden-flower';
+  btn.textContent = gardenIcons[i%gardenIcons.length];
+  btn.addEventListener('click', ()=>{
+    btn.classList.add('opened');
+    showToast(msg, 4200);
+    if(btn.textContent==='🌹') showToast("Every rose reminds me of you.", 3000);
+  });
+  gardenGrid.appendChild(btn);
+});
+
+/* =====================================================================
+   SCENE 5 — teddy hug
+===================================================================== */
+document.getElementById('hug-btn').addEventListener('click', ()=>{
+  const teddy = document.getElementById('hug-teddy');
+  teddy.classList.add('hugging');
+  setTimeout(()=>teddy.classList.remove('hugging'), 900);
+  for(let i=0;i<26;i++){
+    const h = document.createElement('div');
+    h.className='heart-burst-piece';
+    h.textContent = Math.random()>.5 ? '❤️' : '💗';
+    const rect = teddy.getBoundingClientRect();
+    h.style.left = (rect.left+rect.width/2) + 'px';
+    h.style.top = (rect.top+rect.height/2) + 'px';
+    h.style.fontSize = (1+Math.random())+'rem';
+    const angle = Math.random()*Math.PI*2;
+    const dist = 80+Math.random()*140;
+    h.style.setProperty('--bx', Math.cos(angle)*dist+'px');
+    h.style.setProperty('--by', Math.sin(angle)*dist+'px');
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 1200);
+  }
+  if(navigator.vibrate) navigator.vibrate([80,40,80]);
+  showToast("Sending you the biggest virtual hug 🤗❤️");
+});
+
+/* =====================================================================
+   SCENE 6 — envelope
+===================================================================== */
+const envelopeText = `Every relationship has little storms.
+Ours is worth protecting.
+
+I don't want to win arguments.
+I want to win your smile.
+
+I don't want perfect moments.
+I want every moment with you.
+
+Thank you for loving me despite my imperfections.`;
+document.getElementById('envelope').addEventListener('click', function(){
+  if(this.classList.contains('open')) return;
+  this.classList.add('open');
+  typeText(document.getElementById('envelope-note'), envelopeText, 16);
+}, {once:true});
+
+/* =====================================================================
+   SCENE 7 — wish upon a star + moon easter egg
+===================================================================== */
+const starMessages = [
+"I miss your smile.","I miss your voice.","I miss making you laugh.","I miss us.",
+"I love you.","I always will.","I miss your hugs.","I miss your stories.",
+"I miss lazy Sunday talks.","I miss your laugh over silly memes.","I miss holding your hand.",
+"I miss your good morning texts.","I miss your ridiculous jokes.","I miss your calm in my chaos.",
+"I miss planning our little future.","I miss your voice notes.","I miss your randomness.",
+"I miss your warmth.","I miss you, simply.","I love you more than these stars can hold."
+];
+const starField = document.getElementById('star-field');
+starMessages.forEach((msg,i)=>{
+  const b = document.createElement('button');
+  b.className='star-btn';
+  b.textContent='⭐';
+  b.style.left = rand(2,92)+'%';
+  b.style.top = rand(2,86)+'%';
+  b.style.animationDelay = rand(0,2.4)+'s';
+  b.addEventListener('click', ()=>{
+    b.classList.add('clicked');
+    showToast('⭐ '+msg, 3200);
+  });
+  starField.appendChild(b);
+});
+document.getElementById('moon').addEventListener('click', ()=>{
+  showToast("Even the moon isn't as beautiful as your smile. 🌙", 3400);
+});
+
+/* =====================================================================
+   SCENE 8 — promise wall (20 promises)
+===================================================================== */
+const promises = [
+"I promise to listen more.",
+"I promise to understand before reacting.",
+"I promise to protect your heart.",
+"I promise to respect your feelings.",
+"I promise to never stop loving you.",
+"I promise to communicate instead of shutting down.",
+"I promise to make time for you, always.",
+"I promise to celebrate your wins loudly.",
+"I promise to be patient during hard days.",
+"I promise to say sorry when I'm wrong.",
+"I promise to never take you for granted.",
+"I promise to be your safe place.",
+"I promise to choose us over my ego.",
+"I promise to keep making you laugh.",
+"I promise to show up, every single time.",
+"I promise to grow with you, not apart from you.",
+"I promise to cherish the little things.",
+"I promise to hold your hand through it all.",
+"I promise to keep learning how to love you better.",
+"I promise, always, to choose you."
+];
+const promiseWall = document.getElementById('promise-wall');
+promises.forEach((p,i)=>{
+  const s = document.createElement('div');
+  s.className='sticky';
+  s.style.setProperty('--rot', (rand(-4,4))+'deg');
+  s.style.transitionDelay = (i%8*0.06)+'s';
+  s.textContent = p;
+  promiseWall.appendChild(s);
+});
+document.querySelectorAll('.sticky').forEach(card=>{
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('show'); });
+  },{threshold:.15}).observe(card);
+});
+
+/* =====================================================================
+   MINI GAME 1 — Catch My Love
+===================================================================== */
+let catchScore = 0;
+const catchArea = document.getElementById('catch-area');
+const catchMessages = ["You caught a piece of my heart 💗","Every heart is yours 🌹","I'm falling for you, again ❤️"];
+function spawnFallingHeart(){
+  const h = document.createElement('button');
+  h.className='falling-heart';
+  h.textContent = Math.random()>.4 ? '❤️' : '💗';
+  h.style.left = rand(4,90)+'%';
+  const dur = rand(3.5,6);
+  h.style.animationDuration = dur+'s';
+  h.addEventListener('click', ()=>{
+    catchScore++;
+    document.getElementById('catch-score').textContent = catchScore;
+    if(catchScore%5===0) showToast(catchMessages[Math.floor(Math.random()*catchMessages.length)]);
+    h.remove();
+  });
+  catchArea.appendChild(h);
+  setTimeout(()=>h.remove(), dur*1000+100);
+}
+let catchInterval = null;
+new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting && !catchInterval){
+      catchInterval = setInterval(spawnFallingHeart, 900);
+    } else if(!entry.isIntersecting && catchInterval){
+      clearInterval(catchInterval); catchInterval=null;
+    }
+  });
+},{threshold:.2}).observe(catchArea);
+
+/* =====================================================================
+   MINI GAME 2 — Bloom the Garden
+===================================================================== */
+const bloomArea = document.getElementById('bloom-area');
+const bloomIcons = ['🌸','🌷','🌼','🌻'];
+let bloomCount = 0;
+bloomArea.addEventListener('click', (e)=>{
+  const rect = bloomArea.getBoundingClientRect();
+  const span = document.createElement('span');
+  span.textContent = bloomIcons[Math.floor(Math.random()*bloomIcons.length)];
+  span.style.left = (e.clientX-rect.left-14)+'px';
+  span.style.top = (e.clientY-rect.top-14)+'px';
+  bloomArea.appendChild(span);
+  bloomCount++;
+  if(bloomCount===10){
+    document.getElementById('bloom-message').textContent = "Just like this garden, I hope our love continues to bloom. 🌸";
+  }
+});
+
+/* =====================================================================
+   MINI GAME 3 — Build My Heart (sequence puzzle)
+===================================================================== */
+const puzzleRow = document.getElementById('puzzle-row');
+const order = [1,2,3,4].sort(()=>Math.random()-0.5);
+let nextExpected = 1;
+order.forEach(num=>{
+  const btn = document.createElement('button');
+  btn.className='puzzle-piece';
+  btn.textContent = num;
+  btn.addEventListener('click', ()=>{
+    if(parseInt(btn.textContent)===nextExpected){
+      btn.classList.add('correct');
+      btn.disabled = true;
+      nextExpected++;
+      if(nextExpected===5){
+        document.getElementById('puzzle-message').textContent = "I'll always choose you. 💖";
+      }
+    } else {
+      btn.classList.add('shake');
+      setTimeout(()=>btn.classList.remove('shake'), 400);
+    }
+  });
+  puzzleRow.appendChild(btn);
+});
+
+/* =====================================================================
+   MINI GAME 4 — Find the Teddy
+===================================================================== */
+const hideGrid = document.getElementById('hide-grid');
+const teddySpot = Math.floor(Math.random()*9);
+for(let i=0;i<9;i++){
+  const cell = document.createElement('button');
+  cell.className='hide-cell';
+  cell.textContent = '🌼';
+  cell.addEventListener('click', ()=>{
+    if(i===teddySpot){
+      cell.textContent='🧸';
+      cell.classList.add('found');
+      document.getElementById('hide-message').textContent = "You found me... Now please find a little space in your heart to forgive me. 🥺❤️";
+    } else if(!cell.classList.contains('found')){
+      cell.classList.add('wrong');
+      setTimeout(()=>cell.classList.remove('wrong'), 400);
+    }
+  });
+  hideGrid.appendChild(cell);
+}
+
+/* =====================================================================
+   SCENE 9 — countdown
+===================================================================== */
+let countdownDone = false;
+new IntersectionObserver((entries)=>{
+  entries.forEach(async entry=>{
+    if(entry.isIntersecting && !countdownDone){
+      countdownDone = true;
+      const num = document.getElementById('countdown-num');
+      for(const n of [3,2,1]){
+        num.textContent = n;
+        await wait(750);
+      }
+      num.style.display='none';
+      document.getElementById('big-heart').style.display='block';
+      await wait(400);
+      document.getElementById('fade-line-1').classList.add('show');
+      await wait(1300);
+      document.getElementById('fade-line-2').classList.add('show');
+      await wait(1300);
+      document.getElementById('fade-line-3').classList.add('show');
+    }
+  });
+},{threshold:.5}).observe(document.getElementById('scene9'));
+
+/* =====================================================================
+   FINAL SCENE — typewriter + forgive buttons
+===================================================================== */
+const finalMsg = `Thank you for reading everything.
+Thank you for being patient.
+Thank you for being part of my life.
+
+If I made mistakes...
+Please forgive me.
+
+Because loving you has always been the easiest thing I've ever done.`;
+let finalTyped = false;
+new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting && !finalTyped){
+      finalTyped = true;
+      typeText(document.getElementById('tw-final'), finalMsg, 20);
+    }
+  });
+},{threshold:.3}).observe(document.getElementById('scene-final'));
+
+let notYetAttempts = 0;
+const noBtn = document.getElementById('final-no');
+const btnRow = document.getElementById('final-btn-row');
+function dodgeButton(){
+  const rowRect = btnRow.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+  const maxX = Math.max(rowRect.width - btnRect.width - 10, 40);
+  const randX = (Math.random()-0.5)*maxX;
+  const randY = (Math.random()-0.5)*50;
+  const scale = 0.8 + Math.random()*0.5;
+  const rot = rand(-14,14);
+  noBtn.style.left = randX+'px';
+  noBtn.style.top = randY+'px';
+  noBtn.style.transform = `scale(${scale}) rotate(${rot}deg)`;
+}
+function handleNotYet(){
+  notYetAttempts++;
+  if(notYetAttempts < 5){
+    dodgeButton();
+  } else if(notYetAttempts === 5){
+    noBtn.textContent = 'Okay... One Last Chance? 🥺';
+    noBtn.style.left='0px'; noBtn.style.top='0px'; noBtn.style.transform='scale(1)';
+  } else {
+    noBtn.textContent = 'Give Him a Hug Instead 🤗❤️';
+    noBtn.onclick = celebrate;
+  }
+}
+noBtn.addEventListener('mouseenter', ()=>{ if(notYetAttempts<5) handleNotYet(); });
+noBtn.addEventListener('click', (e)=>{
+  if(notYetAttempts<5){ e.preventDefault(); handleNotYet(); }
+  else if(notYetAttempts===5){ handleNotYet(); }
+});
+noBtn.addEventListener('touchstart', (e)=>{
+  if(notYetAttempts<6){ e.preventDefault(); handleNotYet(); }
+});
+
+document.getElementById('final-yes').addEventListener('click', celebrate);
+
+function celebrate(){
+  const emojis = ['❤','💗','🌸','✨','🌹','💖'];
+  for(let i=0;i<70;i++){
+    const c = document.createElement('div');
+    c.className='confetti-piece';
+    c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.fontSize = (0.9 + Math.random()*1.3) + 'rem';
+    c.style.animationDuration = (2.5 + Math.random()*2) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 5000);
+  }
+  document.querySelectorAll('.teddy-flowers, .teddy-final, .teddy-hug').forEach(t=>t.classList.add('dancing'));
+  document.getElementById('celebration-text').style.display = 'block';
+  document.getElementById('final-btn-row').style.display = 'none';
+  brightenMusic();
+}
+
+/* =====================================================================
+   EASTER EGGS
+===================================================================== */
+let teddyClicks = 0;
+document.querySelectorAll('.eastertegg-teddy').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    teddyClicks++;
+    if(teddyClicks===10) showToast("He loves you more than words can explain. 🧸❤️", 4000);
+  });
+});
+document.querySelectorAll('.eastertegg-butterfly').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    showToast("Caught a little piece of my heart. 🦋", 3000);
+  });
+});
+
+// 2-minute stay popup
+setTimeout(()=>{
+  showToast("Still here? Thank you for giving my heart a chance. 💗", 4500);
+}, 120000);
+
+/* =====================================================================
+   BACKGROUND MUSIC — Web Audio ambient pad (no external audio file)
+===================================================================== */
+let audioCtx=null, masterGain=null, isPlaying=false, musicNodes=[], userVolume=0.3, mutedVolume=0;
+
+function buildMusicGraph(){
+  audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = userVolume*0.18;
+  masterGain.connect(audioCtx.destination);
+
+  const freqs = [261.63, 329.63, 392.00, 523.25];
+  freqs.forEach((f, idx)=>{
+    const osc = audioCtx.createOscillator();
+    osc.type='sine'; osc.frequency.value=f;
+    const g = audioCtx.createGain(); g.gain.value=0.03;
+    osc.connect(g); g.connect(masterGain); osc.start();
+
+    const lfo = audioCtx.createOscillator();
+    lfo.frequency.value = 0.06+idx*0.015;
+    const lfoGain = audioCtx.createGain(); lfoGain.gain.value=0.025;
+    lfo.connect(lfoGain); lfoGain.connect(g.gain); lfo.start();
+
+    musicNodes.push(osc,lfo,g);
+  });
+  // fade in
+  masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+  masterGain.gain.linearRampToValueAtTime(userVolume*0.18, audioCtx.currentTime+2.5);
+}
+function tryAutoStartMusic(){
+  // will be started only via explicit toggle to respect autoplay policies robustly;
+  // this hook is left available if we want auto-start after the tap gesture.
+}
+function startMusic(){
+  if(!audioCtx) buildMusicGraph();
+  else if(audioCtx.state==='suspended') audioCtx.resume();
+  isPlaying=true;
+  document.getElementById('music-toggle').textContent='🔊';
+}
+function stopMusic(){
+  if(audioCtx){ audioCtx.close(); audioCtx=null; musicNodes=[]; }
+  isPlaying=false;
+  document.getElementById('music-toggle').textContent='🔇';
+}
+function brightenMusic(){
+  if(masterGain && audioCtx){
+    masterGain.gain.linearRampToValueAtTime(Math.min(userVolume*0.32,0.35), audioCtx.currentTime+1.2);
+  }
+}
+document.getElementById('music-toggle').addEventListener('click', ()=>{
+  if(!isPlaying) startMusic(); else stopMusic();
+});
+document.getElementById('music-volume').addEventListener('input', (e)=>{
+  userVolume = e.target.value/100;
+  if(masterGain) masterGain.gain.value = userVolume*0.18;
+});
+let wasMuted=false;
+document.getElementById('music-mute').addEventListener('click', function(){
+  if(!masterGain) return;
+  if(!wasMuted){ mutedVolume=masterGain.gain.value; masterGain.gain.value=0; this.textContent='🔇'; wasMuted=true; }
+  else{ masterGain.gain.value=mutedVolume; this.textContent='🔈'; wasMuted=false; }
+});
+</script>
+</body>
+</html>
